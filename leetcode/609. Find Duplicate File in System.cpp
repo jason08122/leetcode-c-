@@ -48,10 +48,10 @@ int main ()
 
     for ( auto it:m )
     {
-        if ( it.second.size() > 1 ) ans.push_back(it.second);        
-    } 
+        if ( it.second.size() > 1 ) ans.push_back(it.second);
+    }
 
     return ans;
-    
+
     return 0;
 }
