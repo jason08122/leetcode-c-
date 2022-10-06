@@ -10,39 +10,24 @@ public:
     }
     
     void set(string key, string value, int timestamp) {
-        
-        pair<string,int> temp(value,timestamp);
-
-        auto it = mp.find(key);
-
-        if ( it == mp.end() )
-        {
-            vec_index[key] = 0;
+        if(mp.find(key) == mp.end()){
+            mp[key] = {{value,timestamp}};
         }
-
-        mp[key].push_back(temp);
+        else{
+            mp[key].push_back({value,timestamp});
     }
     
     string get(string key, int timestamp) {
 
-        int max_index = vec_index[key];
-        int max_time = mp[key][max_index].second;
-        bool find = false;
-
-        for(int i =max_index+1;i<mp[key].size();i++)
+        for(int i =mp[key].size()-1;i>=0;i--)
         {
-            if ( max_time < mp[key][i].second && mp[key][i].second <= timestamp )
+            if (mp[key][i].second <= timestamp )
             {
-                max_time = mp[key][i].second;
-                max_index = i;
+                return mp[key][i].first;
             }
         }
         
-        // if (find)return mp[key][max_index].first;
-        // else return "";
-
-        if ( mp[key][max_index].second <= timestamp ) return mp[key][max_index].first;
-        else return "";
+        return "";
     }
 };
 
