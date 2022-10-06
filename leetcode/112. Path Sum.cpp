@@ -10,27 +10,30 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-int ans =0;
+bool ans = false;
 
-void find_max_path (TreeNode* n , int max_num )
+void check_path_sum ( TreeNode* t, int current_sum)
 {
-    if ( n == NULL ) return;
+    if ( t == NULL ) return;
 
-    if ( n->val >= max_num ) 
+    if ( t->left == NULL && t->right == NULL )
     {
-        ans++;
-        max_num = n->val;
+        if (current_sum == t->val ) ans = true;
     }
-    
-    find_max_path(n->left,max_num);
-    find_max_path(n->right,max_num);
+    else
+    {
+        check_path_sum(t->left,current_sum-t->val);
+        check_path_sum(t->right,current_sum-t->val);
+    }
 }
 
 int main ()
 {
     TreeNode* root;
+    int targetSum = 22;
 
-    find_max_path(root,-20000);
+    check_path_sum(root,targetSum);
+
     return ans;
 
     return 0;
